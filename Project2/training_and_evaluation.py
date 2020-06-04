@@ -47,7 +47,7 @@ def train_model(model: nn.Module, dataset: Dataset, batch_size: int, loss_functi
             ##########################################################
             # YOUR CODE HERE
             optimizer.zero_grad()
-            loss, logits = loss_function(x, y, model)
+            loss, logits = loss_function(x, y, model, **loss_args)
             loss.backward()
             losses.append(loss)
             optimizer.step()
@@ -93,9 +93,7 @@ def predict_model(model: nn.Module, dataset: Dataset, batch_size: int, attack_fu
         ##########################################################
         # YOUR CODE HERE
         x.requires_grad = True
-        
         logits = model(x)
-        
         
         if attack_function is None:
             pred = logits.argmax(dim=1, keepdim=True).view(-1)
